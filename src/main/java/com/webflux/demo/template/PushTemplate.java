@@ -1,8 +1,8 @@
 package com.webflux.demo.template;
 
-import com.webflux.demo.pojo.ApplicationProperties;
-import com.webflux.demo.request.WriteNotice;
-import com.webflux.demo.response.Notice;
+import com.webflux.demo.config.ApplicationProperties;
+import com.webflux.demo.domain.dto.BoardDto;
+import com.webflux.demo.domain.dto.BoardWriteDto;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
@@ -37,12 +37,12 @@ public class PushTemplate {
                 .build();
     }
 
-    public Mono<Notice> post(String url, WriteNotice writeNotice) {
+    public Mono<BoardDto> post(String url, BoardWriteDto boardWriteDto) {
         return webClient.post()
                 .uri(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(writeNotice)
+                .bodyValue(boardWriteDto)
                 .retrieve()
-                .bodyToMono(Notice.class);
+                .bodyToMono(BoardDto.class);
     }
 }
