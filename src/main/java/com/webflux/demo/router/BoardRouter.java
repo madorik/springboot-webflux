@@ -10,9 +10,17 @@ import org.springframework.web.reactive.function.server.*;
 public class BoardRouter {
 
     @Bean
-    public RouterFunction<ServerResponse> route(BoardHandler boardHandler) {
+    public RouterFunction<ServerResponse> hello(BoardHandler boardHandler) {
+        return RouterFunctions
+                .route(RequestPredicates.GET("/hello")
+                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), boardHandler::hello);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> board(BoardHandler boardHandler) {
         return RouterFunctions
                 .route(RequestPredicates.GET("/board")
-                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), boardHandler::board);
+                        .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), boardHandler::boards);
     }
+
 }
